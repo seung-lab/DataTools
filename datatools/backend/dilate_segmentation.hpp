@@ -64,11 +64,11 @@ dilate_segmentation( V & seg, V & dst, typename V::element k )
         }
     }
 
-    for ( size_t z = sz - 1; z >= 0; --z )
+    for ( size_t dz = 0, z = sz - 1; dz < sz; ++dz, --z )
     {
-        for ( size_t y = sy - 1; y >= 0; --y )
+        for ( size_t dy = 0, y = sy - 1; dy < sy; ++dy, --y )
         {
-            for ( size_t x = sx - 1; x >=0; --x )
+            for ( size_t dx = 0, x = sx - 1; dx < sx; ++dx, --x )
             {
                 if ( x < sx - 1 )
                 {
