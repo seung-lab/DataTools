@@ -10,4 +10,12 @@ void get_segmentation(
         const float*    aff_data,
         uint32_t*       seg_data);
 
+void dilate_segmentation(
+        size_t          sz,
+        size_t          sy,
+        size_t          sx,
+        uint32_t*       seg_data,
+        uint32_t*       dst_data,
+        uint32_t        k);
+
 #endif

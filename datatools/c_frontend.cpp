@@ -1,5 +1,6 @@
 #include "c_frontend.h"
 #include "backend/get_segmentation.hpp"
+#include "backend/dilate_segmentation.hpp"
 
 void get_segmentation(
 		size_t        sz,
@@ -15,8 +16,28 @@ void get_segmentation(
 
 	// Wrap segmentation array (no copy).
 	volume_ref_ptr<uint32_t> seg(
-			new volume_ref<uint32_t>(seg_data, boost::extents[sz][sy][sx])
-        );
+			new volume_ref<uint32_t>(seg_data, boost::extents[sz][sy][sx]));
 
     get_segmentation(aff, *seg);
+}
+
+void dilate_segmentation(
+		size_t        sz,
+		size_t        sy,
+		size_t        sx,
+		uint32_t*     seg_data,
+		uint32_t*     dst_data,
+        uint32_t      k)
+{
+	std::size_t n = sx*sy*sz;
+
+	// Wrap segmentation array (no copy).
+	volume_ref_ptr<uint32_t> seg(
+			new volume_ref<uint32_t>(seg_data, boost::extents[sz][sy][sx]));
+
+    // Wrap distance array (no copy).
+	volume_ref_ptr<uint32_t> dst(
+			new volume_ref<uint32_t>(dst_data, boost::extents[sz][sy][sx]));
+
+    dilate_segmentation(*seg, *dst, k);
 }

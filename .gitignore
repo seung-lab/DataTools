@@ -2,3 +2,4 @@ build/
 dist/
 datatools.egg-info/
 *.pyc
+_frontend.cpp
