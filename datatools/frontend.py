@@ -28,4 +28,4 @@ def dilate_segmentation(seg, k=10):
 
     __dilate_segmentation(seg, dst, k)
 
-    return ret
+    return seg
