@@ -93,7 +93,7 @@ dilate_segmentation( V & seg, V & dst, typename V::element k )
 
     for ( size_t i = 0; i < n; ++i )
     {
-        if ( dst[i] > k )
-            seg[i] = 0
+        if ( dst.data()[i] > k )
+            seg.data()[i] = 0
     }
 }
