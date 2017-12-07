@@ -1,6 +1,6 @@
 import numpy as np
 
-from _frontend import *
+from _frontend import __get_segmentation, __dilate_segmentation
 
 
 def ascontiguousarray(a):
