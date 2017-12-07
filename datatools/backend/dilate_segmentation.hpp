@@ -41,7 +41,7 @@ dilate_segmentation( V & seg, V & dst, typename V::element k )
                 if ( seg[z][y][x] > 0 )
                     dst[z][y][x] = 0;
                 else
-                    dst[z][y][x] = std::numeric_limits<ID>::max();
+                    dst[z][y][x] = std::numeric_limits<ID>::max() - 1;
 
                 if ( x > 0 )
                 {
