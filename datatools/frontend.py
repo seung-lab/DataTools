@@ -23,9 +23,9 @@ def get_segmentation(aff):
 
 def dilate_segmentation(seg, k=10):
     seg = ascontiguousarray(seg)
-    seg = np.copy(seg)
+    ret = np.copy(seg)
     dst = np.zeros_like(seg, dtype=np.uint32)
 
-    __dilate_segmentation(seg, dst, k)
+    __dilate_segmentation(ret, dst, k)
 
-    return seg
+    return ret
