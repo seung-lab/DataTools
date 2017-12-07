@@ -45,7 +45,7 @@ dilate_segmentation( V & seg, V & dst, typename V::element k )
 
                 if ( x > 0 )
                 {
-                    if ( dst[z][y][x-1] + 1 <= dst[z][y][x]] )
+                    if ( dst[z][y][x-1] + 1 <= dst[z][y][x] )
                     {
                         dst[z][y][x] = dst[z][y][x-1] + 1;
                         seg[z][y][x] = seg[z][y][x-1];
@@ -54,7 +54,7 @@ dilate_segmentation( V & seg, V & dst, typename V::element k )
 
                 if ( y > 0 )
                 {
-                    if ( dst[z][y-1][x] + 1 <= dst[z][y][x]] )
+                    if ( dst[z][y-1][x] + 1 <= dst[z][y][x] )
                     {
                         dst[z][y][x] = dst[z][y-1][x] + 1;
                         seg[z][y][x] = seg[z][y-1][x];
@@ -72,7 +72,7 @@ dilate_segmentation( V & seg, V & dst, typename V::element k )
             {
                 if ( x < sx - 1 )
                 {
-                    if ( dst[z][y][x+1] + 1 <= dst[z][y][x]] )
+                    if ( dst[z][y][x+1] + 1 <= dst[z][y][x] )
                     {
                         dst[z][y][x] = dst[z][y][x+1] + 1;
                         seg[z][y][x] = seg[z][y][x+1];
@@ -81,7 +81,7 @@ dilate_segmentation( V & seg, V & dst, typename V::element k )
 
                 if ( y < sy - 1 )
                 {
-                    if ( dst[z][y+1][x] + 1 <= dst[z][y][x]] )
+                    if ( dst[z][y+1][x] + 1 <= dst[z][y][x] )
                     {
                         dst[z][y][x] = dst[z][y+1][x] + 1;
                         seg[z][y][x] = seg[z][y+1][x];
