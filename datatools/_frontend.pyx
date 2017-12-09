@@ -40,6 +40,19 @@ def __dilate_segmentation(
             k)
 
 
+def __create_border(np.ndarray[uint32_t, ndim=3] seg):
+
+    cdef uint32_t* seg_data
+
+    seg_data = &seg[0,0,0]
+
+    create_border(
+            seg.shape[0],
+            seg.shape[1],
+            seg.shape[2],
+            seg_data)
+
+
 cdef extern from "c_frontend.h":
 
     void get_segmentation(
@@ -56,3 +69,9 @@ cdef extern from "c_frontend.h":
             uint32_t*       seg_data,
             uint32_t*       dst_data,
             uint32_t        k);
+
+    void create_border(
+            size_t          sz,
+            size_t          sy,
+            size_t          sx,
+            uint32_t*       seg_data;

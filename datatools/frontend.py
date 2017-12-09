@@ -1,6 +1,6 @@
 import numpy as np
 
-from _frontend import __get_segmentation, __dilate_segmentation
+from _frontend import __get_segmentation, __dilate_segmentation, __create_border
 
 
 def ascontiguousarray(a):
@@ -27,5 +27,14 @@ def dilate_segmentation(seg, k=10):
     dst = np.zeros_like(seg, dtype=np.uint32)
 
     __dilate_segmentation(seg, dst, k)
+
+    return seg
+
+
+def create_border(seg):
+    seg = ascontiguousarray(seg)
+    seg = np.copy(seg)
+
+    __create_border(seg)
 
     return seg

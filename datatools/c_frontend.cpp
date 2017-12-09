@@ -1,6 +1,7 @@
 #include "c_frontend.h"
 #include "backend/get_segmentation.hpp"
 #include "backend/dilate_segmentation.hpp"
+#include "backend/create_border.hpp"
 
 void get_segmentation(
 		size_t        sz,
@@ -36,4 +37,17 @@ void dilate_segmentation(
 			new volume_ref<uint32_t>(dst_data, boost::extents[sz][sy][sx]));
 
     dilate_segmentation(*seg, *dst, k);
+}
+
+void create_border(
+		size_t        sz,
+		size_t        sy,
+		size_t        sx,
+		uint32_t*     seg_data)
+{
+	// Wrap segmentation array (no copy).
+	volume_ref_ptr<uint32_t> seg(
+			new volume_ref<uint32_t>(seg_data, boost::extents[sz][sy][sx]));
+
+    create_border(*seg);
 }
