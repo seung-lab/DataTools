@@ -74,4 +74,4 @@ cdef extern from "c_frontend.h":
             size_t          sz,
             size_t          sy,
             size_t          sx,
-            uint32_t*       seg_data;
+            uint32_t*       seg_data);
