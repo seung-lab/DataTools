@@ -31,10 +31,16 @@ template <typename T>
 using affinity_graph = boost::multi_array<T,4>;
 
 template <typename T>
-using affinity_graph_ref = boost::const_multi_array_ref<T,4>;
+using affinity_graph_ref = boost::multi_array_ref<T,4>;
+
+template <typename T>
+using affinity_graph_const_ref = boost::const_multi_array_ref<T,4>;
 
 template <typename T>
 using affinity_graph_ptr = std::shared_ptr<affinity_graph<T>>;
 
 template <typename T>
 using affinity_graph_ref_ptr = std::shared_ptr<affinity_graph_ref<T>>;
+
+template <typename T>
+using affinity_graph_const_ref_ptr = std::shared_ptr<affinity_graph_const_ref<T>>;

@@ -1,6 +1,6 @@
 import numpy as np
 
-from ._frontend import __get_segmentation, __dilate_segmentation, __create_border
+from ._frontend import __get_segmentation, __dilate_segmentation, __create_border, __make_affinity
 
 
 def ascontiguousarray(a):
@@ -36,5 +36,15 @@ def create_border(seg):
     seg = np.copy(seg)
 
     __create_border(seg)
+
+    return seg
+
+
+def make_affinity(seg):
+    aff = ascontiguousarray(aff)
+    vol_shape = (aff.shape[1], aff.shape[2], aff.shape[3])
+    seg = np.zeros(vol_shape, dtype=np.uint32)
+
+    __get_segmentation(aff, seg)
 
     return seg

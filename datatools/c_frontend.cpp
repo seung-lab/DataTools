@@ -2,6 +2,7 @@
 #include "backend/get_segmentation.hpp"
 #include "backend/dilate_segmentation.hpp"
 #include "backend/create_border.hpp"
+#include "backend/make_affinity.hpp"
 
 void get_segmentation(
 		size_t        sz,
@@ -11,7 +12,7 @@ void get_segmentation(
 		uint32_t*     seg_data)
 {
 	// Wrap affinities (no copy).
-	affinity_graph_ref<float> aff(aff_data, boost::extents[3][sz][sy][sx]);
+	affinity_graph_const_ref<float> aff(aff_data, boost::extents[3][sz][sy][sx]);
 
 	// Wrap segmentation array (no copy).
 	volume_ref_ptr<uint32_t> seg(
@@ -50,4 +51,21 @@ void create_border(
 			new volume_ref<uint32_t>(seg_data, boost::extents[sz][sy][sx]));
 
     create_border(*seg);
+}
+
+void make_affinity(
+		size_t            sz,
+		size_t            sy,
+		size_t            sx,
+		const uint32_t*   seg_data,
+		float*            aff_data)
+{
+	// Wrap segmentation (no copy).
+    volume_const_ref<uint32_t> seg(seg_data, boost::extents[sz][sy][sx]);
+
+	// Wrap affinity array (no copy).
+    affinity_graph_ref_ptr<float> aff(
+        new affinity_graph_ref<float>(aff_data, boost::extents[3][sz][sy][sx]));
+
+    make_affinity(seg, *aff);
 }

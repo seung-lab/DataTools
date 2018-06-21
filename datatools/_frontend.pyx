@@ -53,6 +53,24 @@ def __create_border(np.ndarray[uint32_t, ndim=3] seg):
             seg_data)
 
 
+def __make_affinity(
+        np.ndarray[uint32_t,     ndim=3] seg,
+        np.ndarray[np.float32_t, ndim=4] aff):
+
+    cdef uint32_t* seg_data
+    cdef float*    aff_data
+
+    seg_data = &seg[0,0,0]
+    aff_data = &aff[0,0,0,0]
+
+    make_affinity(
+            seg.shape[0],
+            seg.shape[1],
+            seg.shape[2],
+            seg_data,
+            aff_data)
+
+
 cdef extern from "c_frontend.h":
 
     void get_segmentation(
@@ -75,3 +93,10 @@ cdef extern from "c_frontend.h":
             size_t          sy,
             size_t          sx,
             uint32_t*       seg_data);
+
+    void make_affinity(
+            size_t          sz,
+            size_t          sy,
+            size_t          sx,
+            const uint32_t* seg_data,
+            float*          aff_data);
