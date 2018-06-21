@@ -41,10 +41,10 @@ def create_border(seg):
 
 
 def make_affinity(seg):
-    aff = ascontiguousarray(aff)
-    vol_shape = (aff.shape[1], aff.shape[2], aff.shape[3])
-    seg = np.zeros(vol_shape, dtype=np.uint32)
+    seg = ascontiguousarray(seg)
+    aff_shape = (3, seg.shape[0], seg.shape[1], seg.shape[2])
+    aff = np.zeros(aff_shape, dtype=np.float32)
 
-    __get_segmentation(aff, seg)
+    __make_affinity(seg, aff)
 
-    return seg
+    return aff
