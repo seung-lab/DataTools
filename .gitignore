@@ -3,3 +3,6 @@ dist/
 datatools.egg-info/
 *.pyc
 _frontend.cpp
+.ipynb_checkpoints/
+*.ipynb
+*.h5
