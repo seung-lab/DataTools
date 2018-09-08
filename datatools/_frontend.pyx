@@ -80,7 +80,8 @@ cdef extern from "c_frontend.h":
             size_t          sy,
             size_t          sx,
             const float*    aff_data,
-            uint32_t*       seg_data);
+            uint32_t*       seg_data,
+            float           threshold);
 
     void dilate_segmentation(
             size_t          sz,
