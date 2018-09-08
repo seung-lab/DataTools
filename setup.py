@@ -22,7 +22,7 @@ extensions = [
         include_dirs=include_dirs,
         language='c++',
         extra_link_args=['-std=c++11'],
-        extra_compile_args=['-std=c++11', '-w', '-mmacosx-version-min=10.9']
+        extra_compile_args=['-std=c++11', '-w']
     ),
 ]
 
