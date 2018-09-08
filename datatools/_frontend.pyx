@@ -5,7 +5,8 @@ cimport numpy as np
 
 def __get_segmentation(
         np.ndarray[np.float32_t, ndim=4] aff,
-        np.ndarray[uint32_t,     ndim=3] seg):
+        np.ndarray[uint32_t,     ndim=3] seg,
+        float threshold):
 
     cdef float*    aff_data
     cdef uint32_t* seg_data
@@ -18,7 +19,8 @@ def __get_segmentation(
             aff.shape[2],
             aff.shape[3],
             aff_data,
-            seg_data)
+            seg_data,
+            threshold)
 
 def __dilate_segmentation(
         np.ndarray[uint32_t, ndim=3] seg,
