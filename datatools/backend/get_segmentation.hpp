@@ -26,7 +26,9 @@ template<typename AG, typename V>
 inline void
 get_segmentation( AG const & aff,
                   V & seg,
-                  float threshold = 0.5 )
+                  float tz = 0.5,
+                  float ty = 0.5,
+                  float tx = 0.5 )
 {
     size_t sz = aff.shape()[1];
     size_t sy = aff.shape()[2];
@@ -65,7 +67,7 @@ get_segmentation( AG const & aff,
                 {
                     // Skip disconnected (black) edges.
                     // Only count connected (white) edges.
-                    if ( aff[0][z][y][x] > threshold )
+                    if ( aff[0][z][y][x] > tx )
                     {
                         long id2 = seg[z][y][x-1];
                         edges.push_back(edge_type(id1, id2));
@@ -76,7 +78,7 @@ get_segmentation( AG const & aff,
                 {
                     // Skip disconnected (black) edges.
                     // Only count connected (white) edges.
-                    if ( aff[1][z][y][x] > threshold )
+                    if ( aff[1][z][y][x] > ty )
                     {
                         long id2 = seg[z][y-1][x];
                         edges.push_back(edge_type(id1, id2));
@@ -87,7 +89,7 @@ get_segmentation( AG const & aff,
                 {
                     // Skip disconnected (black) edges.
                     // Only count connected (white) edges.
-                    if ( aff[2][z][y][x] > threshold )
+                    if ( aff[2][z][y][x] > tz )
                     {
                         long id2 = seg[z-1][y][x];
                         edges.push_back(edge_type(id1, id2));

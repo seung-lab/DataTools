@@ -10,7 +10,9 @@ void get_segmentation(
 		size_t        sx,
 		const float*  aff_data,
 		uint32_t*     seg_data,
-        float     threshold)
+        float         tz,
+        float         ty,
+        float         tx)
 {
 	// Wrap affinities (no copy).
 	affinity_graph_const_ref<float> aff(aff_data, boost::extents[3][sz][sy][sx]);
@@ -19,7 +21,7 @@ void get_segmentation(
 	volume_ref_ptr<uint32_t> seg(
 			new volume_ref<uint32_t>(seg_data, boost::extents[sz][sy][sx]));
 
-    get_segmentation(aff, *seg, threshold);
+    get_segmentation(aff, *seg, tz, ty, tx);
 }
 
 void dilate_segmentation(

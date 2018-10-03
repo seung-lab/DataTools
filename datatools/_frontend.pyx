@@ -6,7 +6,7 @@ cimport numpy as np
 def __get_segmentation(
         np.ndarray[np.float32_t, ndim=4] aff,
         np.ndarray[uint32_t,     ndim=3] seg,
-        float threshold):
+        float tz, float ty, float tx):
 
     cdef float*    aff_data
     cdef uint32_t* seg_data
@@ -20,7 +20,7 @@ def __get_segmentation(
             aff.shape[3],
             aff_data,
             seg_data,
-            threshold)
+            tz, ty, tx)
 
 def __dilate_segmentation(
         np.ndarray[uint32_t, ndim=3] seg,
@@ -81,7 +81,9 @@ cdef extern from "c_frontend.h":
             size_t          sx,
             const float*    aff_data,
             uint32_t*       seg_data,
-            float           threshold);
+            float           tz,
+            float           ty,
+            float           tx);
 
     void dilate_segmentation(
             size_t          sz,

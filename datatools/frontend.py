@@ -11,12 +11,12 @@ def ascontiguousarray(a):
     return a
 
 
-def get_segmentation(aff, threshold=0.5):
+def get_segmentation(aff, threshold=(0.5,0.5,0.5)):
     aff = ascontiguousarray(aff)
     vol_shape = (aff.shape[1], aff.shape[2], aff.shape[3])
     seg = np.zeros(vol_shape, dtype=np.uint32)
 
-    __get_segmentation(aff, seg, threshold)
+    __get_segmentation(aff, seg, *threshold)
 
     return seg
 

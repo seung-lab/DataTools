@@ -9,7 +9,9 @@ void get_segmentation(
         size_t          sx,
         const float*    aff_data,
         uint32_t*       seg_data,
-        float           threshold);
+        float           tz,
+        float           ty,
+        float           tx);
 
 void dilate_segmentation(
         size_t          sz,
