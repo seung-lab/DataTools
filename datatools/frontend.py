@@ -36,11 +36,11 @@ def dilate_segmentation(seg, k=10):
 
 def create_border(seg):
     seg = ascontiguousarray(seg)
-    seg = np.copy(seg)
+    out = np.copy(seg)
 
-    __create_border(seg)
+    __create_border(seg, out)
 
-    return seg
+    return out
 
 
 def make_affinity(seg):

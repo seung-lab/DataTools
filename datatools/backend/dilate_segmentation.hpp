@@ -21,6 +21,8 @@
 
 #include <limits>
 
+namespace backend {
+
 template<typename V>
 inline void
 dilate_segmentation( V & seg, V & dst, typename V::element k )
@@ -97,3 +99,5 @@ dilate_segmentation( V & seg, V & dst, typename V::element k )
             seg.data()[i] = 0;
     }
 }
+
+} // namespace backend

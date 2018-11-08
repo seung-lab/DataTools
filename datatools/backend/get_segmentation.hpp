@@ -22,6 +22,8 @@
 
 #include <boost/pending/disjoint_sets.hpp>
 
+namespace backend {
+
 template<typename AG, typename V>
 inline void
 get_segmentation( AG const & aff,
@@ -147,3 +149,5 @@ get_segmentation( AG const & aff,
         }
     }
 }
+
+} // namespace backend

@@ -42,17 +42,21 @@ def __dilate_segmentation(
             k)
 
 
-def __create_border(np.ndarray[uint32_t, ndim=3] seg):
+def __create_border(np.ndarray[uint32_t, ndim=3] seg,
+                    np.ndarray[uint32_t, ndim=3] out):
 
     cdef uint32_t* seg_data
+    cdef uint32_t* out_data
 
     seg_data = &seg[0,0,0]
+    out_data = &out[0,0,0]
 
     create_border(
             seg.shape[0],
             seg.shape[1],
             seg.shape[2],
-            seg_data)
+            seg_data,
+            out_data)
 
 
 def __make_affinity(
@@ -97,7 +101,8 @@ cdef extern from "c_frontend.h":
             size_t          sz,
             size_t          sy,
             size_t          sx,
-            uint32_t*       seg_data);
+            uint32_t*       seg_data,
+            uint32_t*       out_data);
 
     void make_affinity(
             size_t          sz,

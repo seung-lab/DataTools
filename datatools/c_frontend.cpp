@@ -21,7 +21,7 @@ void get_segmentation(
 	volume_ref_ptr<uint32_t> seg(
 			new volume_ref<uint32_t>(seg_data, boost::extents[sz][sy][sx]));
 
-    get_segmentation(aff, *seg, tz, ty, tx);
+    backend::get_segmentation(aff, *seg, tz, ty, tx);
 }
 
 void dilate_segmentation(
@@ -40,20 +40,25 @@ void dilate_segmentation(
 	volume_ref_ptr<uint32_t> dst(
 			new volume_ref<uint32_t>(dst_data, boost::extents[sz][sy][sx]));
 
-    dilate_segmentation(*seg, *dst, k);
+    backend::dilate_segmentation(*seg, *dst, k);
 }
 
 void create_border(
-		size_t        sz,
-		size_t        sy,
-		size_t        sx,
-		uint32_t*     seg_data)
+		size_t    sz,
+		size_t    sy,
+		size_t    sx,
+		uint32_t* seg_data,
+        uint32_t* out_data)
 {
-	// Wrap segmentation array (no copy).
+    // Wrap output array (no copy).
 	volume_ref_ptr<uint32_t> seg(
 			new volume_ref<uint32_t>(seg_data, boost::extents[sz][sy][sx]));
 
-    create_border(*seg);
+    // Wrap output array (no copy).
+	volume_ref_ptr<uint32_t> out(
+			new volume_ref<uint32_t>(out_data, boost::extents[sz][sy][sx]));
+
+    backend::create_border(*seg, *out);
 }
 
 void make_affinity(
@@ -70,5 +75,5 @@ void make_affinity(
     affinity_graph_ref_ptr<float> aff(
         new affinity_graph_ref<float>(aff_data, boost::extents[3][sz][sy][sx]));
 
-    make_affinity(seg, *aff);
+    backend::make_affinity(seg, *aff);
 }

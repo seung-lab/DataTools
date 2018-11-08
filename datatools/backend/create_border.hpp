@@ -19,9 +19,11 @@
 
 #include "types.hpp"
 
+namespace backend {
+
 template<typename V>
 inline void
-create_border( V & seg )
+create_border( V & seg, V & out)
 {
     typedef typename V::element ID;
 
@@ -62,9 +64,11 @@ create_border( V & seg )
                     }
 
                     if ( is_border )
-                        seg[z][y][x] = 0;
+                        out[z][y][x] = 0;
                 }
             }
         }
     }
 }
+
+} // namespace backend

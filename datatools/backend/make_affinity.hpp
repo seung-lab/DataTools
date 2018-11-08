@@ -19,6 +19,8 @@
 
 #include "types.hpp"
 
+namespace backend {
+
 template<typename V, typename AG>
 inline void
 make_affinity( V const & seg, AG & aff )
@@ -60,3 +62,5 @@ make_affinity( V const & seg, AG & aff )
                 }
             }
 }
+
+} // namespace backend
