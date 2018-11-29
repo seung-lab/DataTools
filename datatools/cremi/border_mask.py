@@ -23,6 +23,8 @@ def create_border_mask(segmentation, max_dist, background_label=0, axis=0):
         target_slice[border] = background_label
         target[tuple(sl)] = target_slice
 
+    return target
+
 
 def create_border_mask_2d(image, max_dist):
     """
