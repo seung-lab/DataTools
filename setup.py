@@ -36,7 +36,7 @@ setup(
     author_email='kisuklee@mit.edu',
     license='MIT',
     requires=['cython','numpy'],
-    packages=['datatools'],
+    packages=['datatools','datatools.cremi'],
     package_data={
         '': [
             'datatools/*.h',
