@@ -1,5 +1,7 @@
 import numpy as np
 import scipy
+import scipy.ndimage
+
 
 def create_border_mask(segmentation, max_dist, background_label=0, axis=0):
     """
