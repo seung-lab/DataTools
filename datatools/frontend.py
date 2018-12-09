@@ -6,7 +6,7 @@ from ._frontend import __get_segmentation, __dilate_segmentation, __create_borde
 def ascontiguousarray(a):
     # The C++ part assumes contiguous memory, make sure we have it.
     if not a.flags['C_CONTIGUOUS']:
-        print("Creating memory-contiguous affinity arrray.")
+        # print("Creating memory-contiguous affinity arrray.")
         a = np.ascontiguousarray(a)
     return a
 
