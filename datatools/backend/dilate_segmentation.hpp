@@ -96,25 +96,33 @@ dilate_segmentation( V & seg, V & dst, typename V::element k )
     // Find local maxima
     for ( size_t z = 0; z < sz; ++z )
     {
-        for ( size_t y = 1; y < sy - 1; ++y )
+        for ( size_t y = 0; y < sy; ++y )
         {
-            for ( size_t x = 1; x < sx - 1; ++x )
+            for ( size_t x = 0; x < sx; ++x )
             {
                 if ( dst[z][y][x] == 0 )
                     continue;
 
-                size_t d1 = dst[z][y][x] - dst[z][y][x-1];
-                size_t d2 = dst[z][y][x] - dst[z][y][x+1];
-                if ( (d1 + d2) > 0 )
+                int dxy = dst[z][y][x];
+                int dxp = dst[z][y][x-1];
+                int dxn = dst[z][y][x+1];
+                int dyp = dst[z][y-1][x];
+                int dyn = dst[z][y+1][x];
+
+                if ( x > 0 && x < sx - 1 )
                 {
-                    seg[z][y][x] = 0;
+                    if ( (dxy - dxp + dxy - dxn) > 0 )
+                    {
+                        seg[z][y][x] = 0;
+                    }
                 }
 
-                size_t d1 = dst[z][y][x] - dst[z][y-1][x];
-                size_t d2 = dst[z][y][x] - dst[z][y+1][x];
-                if ( (d1 + d2) > 0 )
+                if ( y > 0 && y < sy - 1 )
                 {
-                    seg[z][y][x] = 0;
+                    if ( (dxy - dyp + dxy - dyn) > 0 )
+                    {
+                        seg[z][y][x] = 0;
+                    }
                 }
             }
         }
