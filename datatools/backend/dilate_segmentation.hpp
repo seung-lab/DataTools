@@ -111,17 +111,9 @@ dilate_segmentation( V & seg, V & dst, typename V::element k, bool boundary )
                     int dyp = dst[z][y-1][x];
                     int dyn = dst[z][y+1][x];
 
-                    if ( x > 0 && x < sx - 1 )
+                    if ( x > 0 && x < sx - 1 && y > 0 && y < sy - 1 )
                     {
-                        if ( (dxy - dxp + dxy - dxn) > 0 )
-                        {
-                            seg[z][y][x] = 0;
-                        }
-                    }
-
-                    if ( y > 0 && y < sy - 1 )
-                    {
-                        if ( (dxy - dyp + dxy - dyn) > 0 )
+                        if ( (4*dxy - dxp - dxn - dyp - dyn) > 0 )
                         {
                             seg[z][y][x] = 0;
                         }
