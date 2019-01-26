@@ -30,7 +30,8 @@ void dilate_segmentation(
 		size_t        sx,
 		uint32_t*     seg_data,
 		uint32_t*     dst_data,
-        uint32_t      k)
+        uint32_t      k,
+        bool          boundary)
 {
 	// Wrap segmentation array (no copy).
 	volume_ref_ptr<uint32_t> seg(
@@ -40,7 +41,7 @@ void dilate_segmentation(
 	volume_ref_ptr<uint32_t> dst(
 			new volume_ref<uint32_t>(dst_data, boost::extents[sz][sy][sx]));
 
-    backend::dilate_segmentation(*seg, *dst, k);
+    backend::dilate_segmentation(*seg, *dst, k, boundary);
 }
 
 void create_border(

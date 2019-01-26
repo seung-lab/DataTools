@@ -25,7 +25,7 @@ namespace backend {
 
 template<typename V>
 inline void
-dilate_segmentation( V & seg, V & dst, typename V::element k )
+dilate_segmentation( V & seg, V & dst, typename V::element k, bool boundary )
 {
     typedef typename V::element ID;
 
@@ -93,35 +93,38 @@ dilate_segmentation( V & seg, V & dst, typename V::element k )
         }
     }
 
-    // Find local maxima
-    for ( size_t z = 0; z < sz; ++z )
+    if ( boundary )
     {
-        for ( size_t y = 0; y < sy; ++y )
+        // Find local maxima and preserve boundary
+        for ( size_t z = 0; z < sz; ++z )
         {
-            for ( size_t x = 0; x < sx; ++x )
+            for ( size_t y = 0; y < sy; ++y )
             {
-                if ( dst[z][y][x] == 0 )
-                    continue;
-
-                int dxy = dst[z][y][x];
-                int dxp = dst[z][y][x-1];
-                int dxn = dst[z][y][x+1];
-                int dyp = dst[z][y-1][x];
-                int dyn = dst[z][y+1][x];
-
-                if ( x > 0 && x < sx - 1 )
+                for ( size_t x = 0; x < sx; ++x )
                 {
-                    if ( (dxy - dxp + dxy - dxn) > 0 )
+                    if ( dst[z][y][x] == 0 )
+                        continue;
+
+                    int dxy = dst[z][y][x];
+                    int dxp = dst[z][y][x-1];
+                    int dxn = dst[z][y][x+1];
+                    int dyp = dst[z][y-1][x];
+                    int dyn = dst[z][y+1][x];
+
+                    if ( x > 0 && x < sx - 1 )
                     {
-                        seg[z][y][x] = 0;
+                        if ( (dxy - dxp + dxy - dxn) > 0 )
+                        {
+                            seg[z][y][x] = 0;
+                        }
                     }
-                }
 
-                if ( y > 0 && y < sy - 1 )
-                {
-                    if ( (dxy - dyp + dxy - dyn) > 0 )
+                    if ( y > 0 && y < sy - 1 )
                     {
-                        seg[z][y][x] = 0;
+                        if ( (dxy - dyp + dxy - dyn) > 0 )
+                        {
+                            seg[z][y][x] = 0;
+                        }
                     }
                 }
             }
