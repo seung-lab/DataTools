@@ -24,12 +24,12 @@ def get_segmentation(aff, threshold=(0.5,0.5,0.5)):
     return seg
 
 
-def dilate_segmentation(seg, k=10, boundary=False):
+def dilate_segmentation(seg, k=10):
     seg = ascontiguousarray(seg)
     seg = np.copy(seg)
     dst = np.zeros_like(seg, dtype=np.uint32)
 
-    __dilate_segmentation(seg, dst, k, boundary)
+    __dilate_segmentation(seg, dst, k)
 
     return seg
 

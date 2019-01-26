@@ -25,7 +25,7 @@ namespace backend {
 
 template<typename V>
 inline void
-dilate_segmentation( V & seg, V & dst, typename V::element k, bool boundary )
+dilate_segmentation( V & seg, V & dst, typename V::element k)
 {
     typedef typename V::element ID;
 
@@ -87,36 +87,6 @@ dilate_segmentation( V & seg, V & dst, typename V::element k, bool boundary )
                     {
                         dst[z][y][x] = dst[z][y+1][x] + 1;
                         seg[z][y][x] = seg[z][y+1][x];
-                    }
-                }
-            }
-        }
-    }
-
-    if ( boundary )
-    {
-        // Find local maxima and preserve boundary
-        for ( size_t z = 0; z < sz; ++z )
-        {
-            for ( size_t y = 0; y < sy; ++y )
-            {
-                for ( size_t x = 0; x < sx; ++x )
-                {
-                    if ( dst[z][y][x] == 0 )
-                        continue;
-
-                    int dxy = dst[z][y][x];
-                    int dxp = dst[z][y][x-1];
-                    int dxn = dst[z][y][x+1];
-                    int dyp = dst[z][y-1][x];
-                    int dyn = dst[z][y+1][x];
-
-                    if ( x > 0 && x < sx - 1 && y > 0 && y < sy - 1 )
-                    {
-                        if ( (4*dxy - dxp - dxn - dyp - dyn) > 0 )
-                        {
-                            seg[z][y][x] = 0;
-                        }
                     }
                 }
             }

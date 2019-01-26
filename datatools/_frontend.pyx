@@ -1,5 +1,4 @@
 from libc.stdint cimport uint32_t
-from libcpp cimport bool
 
 cimport numpy as np
 
@@ -26,7 +25,7 @@ def __get_segmentation(
 def __dilate_segmentation(
         np.ndarray[uint32_t, ndim=3] seg,
         np.ndarray[uint32_t, ndim=3] dst,
-        uint32_t k, bool boundary):
+        uint32_t k):
 
     cdef uint32_t* seg_data
     cdef uint32_t* dst_data
@@ -40,7 +39,7 @@ def __dilate_segmentation(
             seg.shape[2],
             seg_data,
             dst_data,
-            k, boundary)
+            k)
 
 
 def __create_border(np.ndarray[uint32_t, ndim=3] seg,
@@ -96,8 +95,7 @@ cdef extern from "c_frontend.h":
             size_t          sx,
             uint32_t*       seg_data,
             uint32_t*       dst_data,
-            uint32_t        k,
-            bool            boundary);
+            uint32_t        k);
 
     void create_border(
             size_t          sz,

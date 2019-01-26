@@ -19,8 +19,7 @@ void dilate_segmentation(
         size_t          sx,
         uint32_t*       seg_data,
         uint32_t*       dst_data,
-        uint32_t        k,
-        bool            boundary);
+        uint32_t        k);
 
 void create_border(
         size_t          sz,
