@@ -1,4 +1,5 @@
 from libc.stdint cimport uint32_t
+from libcpp cimport bool
 
 cimport numpy as np
 
