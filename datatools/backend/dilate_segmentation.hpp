@@ -93,6 +93,36 @@ dilate_segmentation( V & seg, V & dst, typename V::element k )
         }
     }
 
+    // Find local maxima
+    for ( size_t z = 0; z < sz; ++z )
+    {
+        for ( size_t y = 1; y < sy - 1; ++y )
+        {
+            for ( size_t x = 1; x < sx - 1; ++x )
+            {
+                auto & dxy = dst[z][y][x];
+                auto & dxp = dst[z][y][x-1];
+                auto & dxn = dst[z][y][x+1];
+                auto & dyp = dst[z][y-1][x];
+                auto & dyn = dst[z][y+1][x];
+
+                auto & sxy = seg[z][y][x];
+                auto & sxp = seg[z][y][x-1];
+                auto & sxn = seg[z][y][x+1];
+                auto & syp = seg[z][y-1][x];
+                auto & syn = seg[z][y-1][x];
+
+                if ( dxy >= dxp && dxy >= dxn )
+                    if ( sxy == sxp && sxy == sxn )
+                        sxy = 0;
+
+                if ( dxy >= dyp && dxy >= dyn )
+                    if ( sxy == syp && sxy == syn )
+                        sxy = 0;
+            }
+        }
+    }
+
     for ( size_t i = 0; i < n; ++i )
     {
         if ( dst.data()[i] > k )
