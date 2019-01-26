@@ -31,7 +31,7 @@ def dilate_segmentation(seg, k=10):
 
     __dilate_segmentation(seg, dst, k)
 
-    return seg
+    return seg, dst
 
 
 def create_border(seg):
