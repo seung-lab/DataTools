@@ -103,11 +103,11 @@ dilate_segmentation( V & seg, V & dst, typename V::element k )
                 if ( dst[z][y][x] == 0 )
                     continue;
 
-                auto & dxy = dst[z][y][x];
-                auto & dxp = dst[z][y][x-1];
-                auto & dxn = dst[z][y][x+1];
-                auto & dyp = dst[z][y-1][x];
-                auto & dyn = dst[z][y+1][x];
+                ID dxy = dst[z][y][x];
+                ID dxp = dst[z][y][x-1];
+                ID dxn = dst[z][y][x+1];
+                ID dyp = dst[z][y-1][x];
+                ID dyn = dst[z][y+1][x];
 
                 if ( (dxy >= dxp) && (dxy >= dxn) )
                     seg[z][y][x] = 0;
