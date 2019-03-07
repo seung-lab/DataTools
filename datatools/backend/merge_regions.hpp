@@ -26,23 +26,18 @@
 
 namespace backend {
 
-template< typename V, typename F >
+template< typename ID, typename F >
 inline void
-merge_regions( V const & seg,
-               V & out,
-               const F * dend_values,
-               const typename V::element * dend_pairs,
+merge_regions( ID const * seg,
+               ID * out,
+               size_t n,
+               F const * dend_values,
+               ID const * dend_pairs,
                size_t nedges,
-               F threshold)
+               F threshold )
 {
-    typedef typename V::element ID;
-
     // Find the largest ID in segmentation
     ID max_segid = seg[0];
-    size_t sz = seg.shape()[0];
-    size_t sy = seg.shape()[1];
-    size_t sx = seg.shape()[2];
-    size_t n = sx*sy*sz;
     for ( size_t i = 1; i < n; ++i )
     {
         if ( seg[i] > max_segid )

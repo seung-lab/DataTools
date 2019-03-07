@@ -79,7 +79,7 @@ def __make_affinity(
 
 def __merge_regions(
         np.ndarray[uint32_t,     ndim=3] rg,
-        np.ndarray[uint32_t,     ndim=3] seg
+        np.ndarray[uint32_t,     ndim=3] seg,
         np.ndarray[np.float32_t, ndim=1] dend_values,
         np.ndarray[uint32_t,     ndim=1] dend_pairs,
         size_t nedges, float threshold):
@@ -95,11 +95,9 @@ def __merge_regions(
     pairs_data = &dend_pairs[0]
 
     merge_regions(
-            seg.shape[0],
-            seg.shape[1],
-            seg.shape[2],
             rg_data,
             seg_data,
+            seg.shape[0]*seg.shape[1]*seg.shape[2],
             values_data,
             pairs_data,
             nedges,
@@ -142,11 +140,9 @@ cdef extern from "c_frontend.h":
             float*          aff_data);
 
     void merge_regions(
-            size_t          sz,
-            size_t          sy,
-            size_t          sx,
             const uint32_t* rg_data,
             uint32_t*       seg_data,
+            size_t          nvoxels,
             const float*    dend_values,
             const uint32_t* dend_pairs,
             size_t          nedges,

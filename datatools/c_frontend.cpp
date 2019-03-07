@@ -80,26 +80,14 @@ void make_affinity(
 }
 
 void merge_regions(
-        size_t          sz,
-        size_t          sy,
-        size_t          sx,
         const uint32_t* rg_data,
-        uint32_t*       seg_data
+        uint32_t*       seg_data,
+        size_t          nvoxels,
         const float*    dend_values,
         const uint32_t* dend_pairs,
         size_t          nedges,
         float           threshold)
 {
-    // Wrap segmentation (no copy).
-    volume_const_ref<uint32_t> rg(rg_data, boost::extents[sz][sy][sx]);
-
-    // Wrap region array (no copy).
-	// volume_ref_ptr<uint32_t> rg(
-	// 		new volume_ref<uint32_t>(rg_data, boost::extents[sz][sy][sx]));
-
-    // Wrap segmentation array (no copy).
-	volume_ref_ptr<uint32_t> seg(
-			new volume_ref<uint32_t>(seg_data, boost::extents[sz][sy][sx]));
-
-    backend::merge_regions(rg, seg, dend_values, dend_pairs, nedges, threshold);
+    backend::merge_regions(rg_data, seg_data, nvoxels, dend_values, dend_pairs,
+                           nedges, threshold);
 }

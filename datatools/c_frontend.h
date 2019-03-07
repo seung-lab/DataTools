@@ -36,11 +36,9 @@ void make_affinity(
         float*          aff_data);
 
 void merge_regions(
-        size_t          sz,
-        size_t          sy,
-        size_t          sx,
         const uint32_t* rg_data,
-        uint32_t*       seg_data
+        uint32_t*       seg_data,
+        size_t          nvoxels,
         const float*    dend_values,
         const uint32_t* dend_pairs,
         size_t          nedges,

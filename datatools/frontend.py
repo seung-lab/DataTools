@@ -57,11 +57,10 @@ def merge_regions(rg, dend_values, dend_pairs, threshold):
     rg = ascontiguousarray(rg)
     seg = np.zeros_like(rg)
 
-    __merge_regions(rg,
+    __merge_regions(rg, seg,
                     dend_values,
                     dend_pairs,
                     len(dend_values),
-                    threshold,
-                    seg)
+                    threshold)
 
     return seg
