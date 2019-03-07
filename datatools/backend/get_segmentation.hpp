@@ -24,7 +24,7 @@
 
 namespace backend {
 
-template<typename AG, typename V>
+template< typename AG, typename V >
 inline void
 get_segmentation( AG const & aff,
                   V & seg,

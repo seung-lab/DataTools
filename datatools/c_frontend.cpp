@@ -3,6 +3,7 @@
 #include "backend/dilate_segmentation.hpp"
 #include "backend/create_border.hpp"
 #include "backend/make_affinity.hpp"
+#include "backend/merge_regions.hpp"
 
 void get_segmentation(
 		size_t        sz,
@@ -76,4 +77,29 @@ void make_affinity(
         new affinity_graph_ref<float>(aff_data, boost::extents[3][sz][sy][sx]));
 
     backend::make_affinity(seg, *aff);
+}
+
+void merge_regions(
+        size_t          sz,
+        size_t          sy,
+        size_t          sx,
+        const uint32_t* rg_data,
+        uint32_t*       seg_data
+        const float*    dend_values,
+        const uint32_t* dend_pairs,
+        size_t          nedges,
+        float           threshold)
+{
+    // Wrap segmentation (no copy).
+    volume_const_ref<uint32_t> rg(rg_data, boost::extents[sz][sy][sx]);
+
+    // Wrap region array (no copy).
+	// volume_ref_ptr<uint32_t> rg(
+	// 		new volume_ref<uint32_t>(rg_data, boost::extents[sz][sy][sx]));
+
+    // Wrap segmentation array (no copy).
+	volume_ref_ptr<uint32_t> seg(
+			new volume_ref<uint32_t>(seg_data, boost::extents[sz][sy][sx]));
+
+    backend::merge_regions(rg, seg, dend_values, dend_pairs, nedges, threshold);
 }

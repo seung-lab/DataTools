@@ -1,6 +1,6 @@
 import numpy as np
 
-from ._frontend import __get_segmentation, __dilate_segmentation, __create_border, __make_affinity
+from ._frontend import __get_segmentation, __dilate_segmentation, __create_border, __make_affinity, __merge_regions
 
 
 def ascontiguousarray(a):
@@ -51,3 +51,17 @@ def make_affinity(seg):
     __make_affinity(seg, aff)
 
     return aff
+
+
+def merge_regions(rg, dend_values, dend_pairs, threshold):
+    rg = ascontiguousarray(rg)
+    seg = np.zeros_like(rg)
+
+    __merge_regions(rg,
+                    dend_values,
+                    dend_pairs,
+                    len(dend_values),
+                    threshold,
+                    seg)
+
+    return seg

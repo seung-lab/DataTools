@@ -21,9 +21,9 @@
 
 namespace backend {
 
-template<typename V>
+template< typename V >
 inline void
-create_border( V & seg, V & out)
+create_border( V & seg, V & out )
 {
     typedef typename V::element ID;
 

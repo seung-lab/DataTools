@@ -35,4 +35,15 @@ void make_affinity(
         const uint32_t* seg_data,
         float*          aff_data);
 
+void merge_regions(
+        size_t          sz,
+        size_t          sy,
+        size_t          sx,
+        const uint32_t* rg_data,
+        uint32_t*       seg_data
+        const float*    dend_values,
+        const uint32_t* dend_pairs,
+        size_t          nedges,
+        float           threshold);
+
 #endif

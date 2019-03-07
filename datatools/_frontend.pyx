@@ -77,6 +77,36 @@ def __make_affinity(
             aff_data)
 
 
+def __merge_regions(
+        np.ndarray[uint32_t,     ndim=3] rg,
+        np.ndarray[uint32_t,     ndim=3] seg
+        np.ndarray[np.float32_t, ndim=1] dend_values,
+        np.ndarray[uint32_t,     ndim=1] dend_pairs,
+        size_t nedges, float threshold):
+
+    cdef uint32_t* rg_data
+    cdef uint32_t* seg_data
+    cdef float*    values_data
+    cdef uint32_t* pairs_data
+
+    rg_data = &rg[0,0,0]
+    seg_data = &seg[0,0,0]
+    values_data = &dend_values[0]
+    pairs_data = &dend_pairs[0]
+
+    merge_regions(
+            seg.shape[0],
+            seg.shape[1],
+            seg.shape[2],
+            rg_data,
+            seg_data,
+            values_data,
+            pairs_data,
+            nedges,
+            threshold)
+
+
+
 cdef extern from "c_frontend.h":
 
     void get_segmentation(
@@ -110,3 +140,14 @@ cdef extern from "c_frontend.h":
             size_t          sx,
             const uint32_t* seg_data,
             float*          aff_data);
+
+    void merge_regions(
+            size_t          sz,
+            size_t          sy,
+            size_t          sx,
+            const uint32_t* rg_data,
+            uint32_t*       seg_data,
+            const float*    dend_values,
+            const uint32_t* dend_pairs,
+            size_t          nedges,
+            float           threshold);

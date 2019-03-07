@@ -23,9 +23,9 @@
 
 namespace backend {
 
-template<typename V>
+template< typename V >
 inline void
-dilate_segmentation( V & seg, V & dst, typename V::element k)
+dilate_segmentation( V & seg, V & dst, typename V::element k )
 {
     typedef typename V::element ID;
 

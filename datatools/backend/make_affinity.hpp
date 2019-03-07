@@ -21,7 +21,7 @@
 
 namespace backend {
 
-template<typename V, typename AG>
+template< typename V, typename AG >
 inline void
 make_affinity( V const & seg, AG & aff )
 {
