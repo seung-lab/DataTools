@@ -1,6 +1,6 @@
 import numpy as np
 
-from ._frontend import __get_segmentation, __dilate_segmentation, __create_border, __make_affinity, __merge_regions
+from ._frontend import __get_segmentation, __dilate_segmentation, __get_self_touch, __create_border, __make_affinity, __merge_regions
 
 
 def ascontiguousarray(a):
@@ -32,6 +32,17 @@ def dilate_segmentation(seg, k=10):
     __dilate_segmentation(seg, dst, k)
 
     return seg
+
+
+def get_self_touch(seg, k=10):
+    seg = ascontiguousarray(seg)
+    seg = np.copy(seg)
+    dst = np.zeros_like(seg, dtype=np.uint32)
+    out = np.zeros_like(seg, dtype=np.uint8)
+
+    __get_self_touch(seg, dst, out, k)
+
+    return out
 
 
 def create_border(seg):

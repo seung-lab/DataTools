@@ -1,4 +1,4 @@
-from libc.stdint cimport uint32_t
+from libc.stdint cimport uint8_t, uint32_t
 
 cimport numpy as np
 
@@ -39,6 +39,30 @@ def __dilate_segmentation(
             seg.shape[2],
             seg_data,
             dst_data,
+            k)
+
+
+def __get_self_touch(
+        np.ndarray[uint32_t, ndim=3] seg,
+        np.ndarray[uint32_t, ndim=3] dst,
+        np.ndarray[uint8_t,  ndim=3] out,
+        uint32_t k):
+
+    cdef uint32_t* seg_data
+    cdef uint32_t* dst_data
+    cdef uint8_t*  out_data
+
+    seg_data = &seg[0,0,0]
+    dst_data = &dst[0,0,0]
+    out_data = &out[0,0,0]
+
+    get_self_touch(
+            seg.shape[0],
+            seg.shape[1],
+            seg.shape[2],
+            seg_data,
+            dst_data,
+            out_data,
             k)
 
 
@@ -123,6 +147,15 @@ cdef extern from "c_frontend.h":
             size_t          sx,
             uint32_t*       seg_data,
             uint32_t*       dst_data,
+            uint32_t        k);
+
+    void get_self_touch(
+            size_t          sz,
+            size_t          sy,
+            size_t          sx,
+            uint32_t*       seg_data,
+            uint32_t*       dst_data,
+            uint8_t*        out_data,
             uint32_t        k);
 
     void create_border(

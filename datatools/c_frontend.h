@@ -21,6 +21,15 @@ void dilate_segmentation(
         uint32_t*       dst_data,
         uint32_t        k);
 
+void get_self_touch(
+        size_t          sz,
+        size_t          sy,
+        size_t          sx,
+        uint32_t*       seg_data,
+        uint32_t*       dst_data,
+        uint8_t*        out_data,
+        uint32_t        k);
+
 void create_border(
         size_t          sz,
         size_t          sy,

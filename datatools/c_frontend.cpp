@@ -1,6 +1,7 @@
 #include "c_frontend.h"
 #include "backend/get_segmentation.hpp"
 #include "backend/dilate_segmentation.hpp"
+#include "backend/get_self_touch.hpp"
 #include "backend/create_border.hpp"
 #include "backend/make_affinity.hpp"
 #include "backend/merge_regions.hpp"
@@ -42,6 +43,30 @@ void dilate_segmentation(
 			new volume_ref<uint32_t>(dst_data, boost::extents[sz][sy][sx]));
 
     backend::dilate_segmentation(*seg, *dst, k);
+}
+
+void get_self_touch(
+		size_t        sz,
+		size_t        sy,
+		size_t        sx,
+		uint32_t*     seg_data,
+		uint32_t*     dst_data,
+        uint8_t*      out_data,
+        uint32_t      k)
+{
+	// Wrap segmentation array (no copy).
+	volume_ref_ptr<uint32_t> seg(
+			new volume_ref<uint32_t>(seg_data, boost::extents[sz][sy][sx]));
+
+    // Wrap distance array (no copy).
+	volume_ref_ptr<uint32_t> dst(
+			new volume_ref<uint32_t>(dst_data, boost::extents[sz][sy][sx]));
+
+    // Wrap output array (no copy).
+	volume_ref_ptr<uint8_t> out(
+			new volume_ref<uint8_t>(out_data, boost::extents[sz][sy][sx]));
+
+    backend::get_self_touch(*seg, *dst, *out, k);
 }
 
 void create_border(
